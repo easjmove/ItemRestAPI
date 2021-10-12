@@ -31,12 +31,12 @@ namespace ItemRestAPI.Managers
 
         public IEnumerable<Item> GetAll(string contains)
         {
-            if (string.IsNullOrWhiteSpace(substring))
+            if (string.IsNullOrWhiteSpace(contains))
             {
                 return _context.Items.ToList();
             }
             IEnumerable<Item> items = from item in _context.Items
-                                      where item.Name.Contains(substring)
+                                      where item.Name.Contains(contains)
                                       select item;
             return items;
         }
