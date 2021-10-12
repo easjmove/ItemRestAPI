@@ -31,7 +31,14 @@ namespace ItemRestAPI.Managers
 
         public IEnumerable<Item> GetAll(string contains)
         {
-            return _context.Items.ToList<Item>();
+            if (string.IsNullOrWhiteSpace(substring))
+            {
+                return _context.Items.ToList();
+            }
+            IEnumerable<Item> items = from item in _context.Items
+                                      where item.Name.Contains(substring)
+                                      select item;
+            return items;
         }
 
         public Item GetById(int id)
