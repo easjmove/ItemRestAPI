@@ -6,7 +6,7 @@ using ItemLibrary;
 
 namespace ItemRestAPI.Managers
 {
-    public class ItemsManager
+    public class ItemsManager : IItemsManager
     {
         private static int _nextID = 1;
         private static readonly List<Item> Data = new List<Item>
@@ -20,7 +20,7 @@ namespace ItemRestAPI.Managers
             List<Item> items = new List<Item>(Data);
             if (contains != null)
             {
-                items = items.FindAll(item => item.Name.Contains(contains,StringComparison.OrdinalIgnoreCase));
+                items = items.FindAll(item => item.Name.Contains(contains, StringComparison.OrdinalIgnoreCase));
             }
             return items;
         }

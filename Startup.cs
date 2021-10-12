@@ -1,6 +1,8 @@
+using ItemRestAPI.AppDbContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -50,6 +52,14 @@ namespace ItemRestAPI
 
             services.AddCors(options => options.AddPolicy("AllowOnlyGet", builder =>
              builder.AllowAnyOrigin().WithMethods("GET").AllowAnyHeader().SetPreflightMaxAge(TimeSpan.FromHours(30))));
+
+            //services.AddDbContext<ItemContext>(opt =>
+            //    opt.UseInMemoryDatabase("items")
+            //);
+
+            services.AddDbContext<ItemContext>(opt =>
+                opt.UseSqlServer(Secrets.ConnectionString)
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -7,6 +7,7 @@ using ItemLibrary;
 using ItemRestAPI.Managers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Cors;
+using ItemRestAPI.AppDbContext;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,7 +19,12 @@ namespace ItemRestAPI.Controllers
     [ApiController]
     public class ItemsController : ControllerBase
     {
-        private readonly ItemsManager _manager = new ItemsManager();
+        private readonly IItemsManager _manager; //= new ItemsManager();
+
+        public ItemsController(ItemContext context)
+        {
+            _manager = new ItemsManagerDB(context);
+        }
 
         // GET: /Items?contains=wat
         [ProducesResponseType(StatusCodes.Status200OK)]
